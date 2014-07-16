@@ -1,7 +1,7 @@
 SpreeKlarnaCheckout
 ===================
 
-Introduction goes here.
+Spree Klarna Gateway integration
 
 Installation
 ------------
