@@ -6,21 +6,6 @@ class Spree::Gateway::KlarnaCheckout < Spree::Gateway
 
   preference :terms_url, :string
   preference :locale, :string, :default => 'de-de'
-  COUNTRIES = {
-      :'sv-se' => 'SE',
-      :'fi-fi' => 'FI',
-      :'sv-fi' => 'FI',
-      :'nb-no' => 'NO',
-      :'de-de' => 'DE'
-  }
-
-  # CURRENCIES = {
-  #     :'sv-se' => 'SEK',
-  #     :'fi-fi' => 'EUR',
-  #     :'sv-fi' => 'EUR',
-  #     :'nb-no' => 'NOK',
-  #     :'de-de' => 'EUR'
-  # }
 
   def provider_class
     ActiveMerchant::Billing::KlarnaCheckout
@@ -28,23 +13,6 @@ class Spree::Gateway::KlarnaCheckout < Spree::Gateway
 
   def method_type
     'klarna'
-  end
-
-
-  def locale
-    preferred_locale.downcase
-  end
-
-  def purchase_currency
-    CURRENCIES[locale.to_sym]
-  end
-
-  def purchase_country
-    COUNTRIES[locale.to_sym]
-  end
-
-  def client
-    @client ||= Klarna::Client.new(preferred_shared_secret,preferred_test_mode)
   end
 
 
@@ -158,6 +126,39 @@ class Spree::Gateway::KlarnaCheckout < Spree::Gateway
   end
 
   private
+
+  COUNTRIES = {
+      :'sv-se' => 'SE',
+      :'fi-fi' => 'FI',
+      :'sv-fi' => 'FI',
+      :'nb-no' => 'NO',
+      :'de-de' => 'DE'
+  }
+
+  # CURRENCIES = {
+  #     :'sv-se' => 'SEK',
+  #     :'fi-fi' => 'EUR',
+  #     :'sv-fi' => 'EUR',
+  #     :'nb-no' => 'NOK',
+  #     :'de-de' => 'EUR'
+  # }
+
+  def client
+    @client ||= Klarna::Client.new(preferred_shared_secret,preferred_test_mode)
+  end
+
+  def locale
+    preferred_locale.downcase
+  end
+
+  def purchase_currency
+    CURRENCIES[locale.to_sym]
+  end
+
+  def purchase_country
+    COUNTRIES[locale.to_sym]
+  end
+
   def to_klarna_i(number)
     (number*100).round
   end
