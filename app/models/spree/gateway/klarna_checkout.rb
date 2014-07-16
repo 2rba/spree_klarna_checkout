@@ -110,9 +110,7 @@ class Spree::Gateway::KlarnaCheckout < Spree::Gateway
             terms_uri:        preferred_terms_url,
             checkout_uri:     url + Spree::Core::Engine.routes.url_helpers.checkout_path,
             confirmation_uri: url + Spree::Core::Engine.routes.url_helpers.confirmation_path + "?klarna_order={checkout.order.id}&gw_id=#{self.id}",
-            # push_uri:         url + Spree::Core::Engine.routes.url_helpers.push_uri_path + '?klarna_order={checkout.order.id}&order_id=' + order.number,
-            push_uri:         'http://black.lviv.name' + Spree::Core::Engine.routes.url_helpers.push_uri_path + "?klarna_order={checkout.order.id}&gw_id=#{self.id}"
-
+            push_uri:         url + Spree::Core::Engine.routes.url_helpers.push_uri_path + "?klarna_order={checkout.order.id}&gw_id=#{self.id}"
           }
         })
 
